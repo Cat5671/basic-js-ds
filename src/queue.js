@@ -23,17 +23,24 @@ class Queue {
   }
 
   enqueue(value) {
-    self.top = addNodeToEnd(self.top);
     function addNodeToEnd(node) {
-      if (!self.top || !node.next) return new ListNode(value);
-      else return addNodeToEnd(node.next);
+      if (!node.next) {
+        node.next = new ListNode(value);
+        return node.next;
+      } else return addNodeToEnd(node.next);
+    }
+    if (!this.top) {
+      this.top = new ListNode(value);
+    }
+    else {
+      this.top.next = addNodeToEnd(this.top);
     }
   }
   
   dequeue() {
-    if (!self.top) return;
-    const firstValue = self.top.value;
-    self.top = self.top.next;
+    if (!this.top) return;
+    const firstValue = this.top.value;
+    this.top = this.top.next;
     return firstValue;
   }
 }
