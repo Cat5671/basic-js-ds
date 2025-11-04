@@ -14,33 +14,38 @@ const { ListNode } = require('../extensions/list-node.js');
  */
 class Queue {
   constructor() {
-    self.top = null;
+    this.top = null;
+    this.tail = null; 
   }
-  
+
   getUnderlyingList() {
-    // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+    return this.top;
   }
 
   enqueue(value) {
-    function addNodeToEnd(node) {
-      if (!node.next) {
-        node.next = new ListNode(value);
-        return node.next;
-      } else return addNodeToEnd(node.next);
-    }
+    const newNode = new ListNode(value);
+
     if (!this.top) {
-      this.top = new ListNode(value);
-    }
-    else {
-      this.top.next = addNodeToEnd(this.top);
+      this.top = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
   }
   
   dequeue() {
-    if (!this.top) return;
+    if (!this.top) {
+        return;
+    }
+
     const firstValue = this.top.value;
     this.top = this.top.next;
+
+    if (!this.top) {
+        this.tail = null;
+    }
+
     return firstValue;
   }
 }
