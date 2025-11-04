@@ -14,7 +14,6 @@ const { NotImplementedError } = require('../lib/errors');
  */
 class Queue {
   constructor() {
-    self.tail = null;
     self.top = null;
   }
   
@@ -24,25 +23,15 @@ class Queue {
   }
 
   enqueue(value) {
-    addNodeToEnd();
-    function addNodeToEnd() {
-      if (!self.tail && !self.top) {
-        const newNode = new ListNode(value);
-        self.top = newNode;
-        self.tail = newNode;
-      }
-      else {
-        self.tail.next = new ListNode(value);
-        self.tail = self.tail.next;
-      }
-    }
+    self.top = addNodeToEnd(self.top);
+    function addNodeToEnd(node) 
+      if (!self.top || !node.next) return new ListNode(value);
+      else return addNodeToEnd(node.next);
   }
-
+  
   dequeue() {
-    if (!self.top) return;
-    const lastElem = self.top;
-    self.top = self.top.next;
-    return lastElem;
+    // Remove line below and write your code here
+    throw new NotImplementedError('Not implemented');
   }
 }
 
